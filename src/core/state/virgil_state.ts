@@ -1,0 +1,8 @@
+export enum VirgilState {
+  IDLE = "IDLE",
+  ANALYZING = "ANALYZING",
+  ADVISING = "ADVISING",
+  WAITING_DECISION = "WAITING_DECISION",
+  ACTING = "ACTING",
+  ERROR = "ERROR",
+}
