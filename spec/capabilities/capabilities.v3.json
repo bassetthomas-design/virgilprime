@@ -1,0 +1,302 @@
+{
+  "name": "VirgilPrime",
+  "version": "3.0.0-spec",
+  "generatedAt": "2025-12-15T14:33:37.010523Z",
+  "capabilitySchemaVersion": "1.0",
+  "levels": [
+    "CORE",
+    "ADVANCED",
+    "EXPERT",
+    "BONUS"
+  ],
+  "domains": [
+    "APPX",
+    "AUDIT",
+    "CLEANING",
+    "CONSISTENCY",
+    "DISK",
+    "HARDWARE",
+    "LOGGING",
+    "META",
+    "MONITORING",
+    "NETWORK",
+    "PERFORMANCE",
+    "PRIVACY",
+    "REGISTRY",
+    "REPAIR",
+    "SECURITY",
+    "SERVICES",
+    "STARTUP",
+    "TASKSCHED",
+    "TOOLS",
+    "TROUBLESHOOT",
+    "UNINSTALL",
+    "UPDATES",
+    "USERPROFILES"
+  ],
+  "capabilities": [
+    {
+      "id": "CLEAN_RECYCLE_BIN",
+      "title": "Vider la corbeille (intelligent)",
+      "level": "CORE",
+      "domain": "CLEANING",
+      "requiresAdmin": false,
+      "supportsDryRun": true,
+      "rollback": [],
+      "risk": "LOW",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "minAgeDays": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "includeTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "description": "Supprime le contenu de la corbeille avec options d'âge et de types.",
+      "tags": []
+    },
+    {
+      "id": "CLEAN_TEMP_USER",
+      "title": "Nettoyer les temporaires utilisateur",
+      "level": "CORE",
+      "domain": "CLEANING",
+      "requiresAdmin": false,
+      "supportsDryRun": true,
+      "rollback": [],
+      "risk": "LOW",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "description": "Nettoyer les temporaires utilisateur",
+      "tags": []
+    },
+    {
+      "id": "CLEAN_TEMP_WINDOWS",
+      "title": "Nettoyer les temporaires Windows",
+      "level": "CORE",
+      "domain": "CLEANING",
+      "requiresAdmin": true,
+      "supportsDryRun": true,
+      "rollback": [
+        "RESTORE_POINT_OPTIONAL"
+      ],
+      "risk": "MEDIUM",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "description": "Nettoyer les temporaires Windows",
+      "tags": []
+    },
+    {
+      "id": "CLEAN_WER_REPORTS",
+      "title": "Nettoyer Windows Error Reporting",
+      "level": "CORE",
+      "domain": "CLEANING",
+      "requiresAdmin": false,
+      "supportsDryRun": true,
+      "rollback": [],
+      "risk": "LOW",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      },
+      "description": "Nettoyer Windows Error Reporting",
+      "tags": []
+    },
+    {
+      "id": "CLEAN_CRASH_DUMPS",
+      "title": "Nettoyer dumps crash/BSOD",
+      "level": "CORE",
+      "domain": "CLEANING",
+      "requiresAdmin": true,
+      "supportsDryRun": true,
+      "rollback": [
+        "RESTORE_POINT_OPTIONAL"
+      ],
+      "risk": "MEDIUM",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "keepLatest": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "maxTotalMB": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "description": "Nettoyer dumps crash/BSOD",
+      "tags": []
+    },
+    {
+      "id": "CLEAN_WINDOWS_LOGS",
+      "title": "Nettoyer logs Windows non critiques",
+      "level": "CORE",
+      "domain": "CLEANING",
+      "requiresAdmin": true,
+      "supportsDryRun": true,
+      "rollback": [],
+      "risk": "LOW",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      },
+      "description": "Nettoyer logs Windows non critiques",
+      "tags": []
+    },
+    {
+      "id": "CLEAN_UPDATE_CACHE_SOFT",
+      "title": "Nettoyer cache Windows Update (soft)",
+      "level": "CORE",
+      "domain": "CLEANING",
+      "requiresAdmin": true,
+      "supportsDryRun": true,
+      "rollback": [],
+      "risk": "MEDIUM",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      },
+      "description": "Nettoyer cache Windows Update (soft)",
+      "tags": []
+    },
+    {
+      "id": "CLEAN_WEBVIEW2_CACHE",
+      "title": "Nettoyer cache WebView2",
+      "level": "CORE",
+      "domain": "CLEANING",
+      "requiresAdmin": false,
+      "supportsDryRun": true,
+      "rollback": [],
+      "risk": "LOW",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      },
+      "description": "Nettoyer cache WebView2",
+      "tags": []
+    },
+    {
+      "id": "CLEAN_BROWSER_CACHE_ALL",
+      "title": "Nettoyer cache navigateurs (tous détectés)",
+      "level": "CORE",
+      "domain": "CLEANING",
+      "requiresAdmin": false,
+      "supportsDryRun": true,
+      "rollback": [],
+      "risk": "LOW",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "CACHE_ONLY",
+              "SMART",
+              "DEEP",
+              "NUCLEAR"
+            ]
+          },
+          "keepPasswords": {
+            "type": "boolean"
+          }
+        }
+      },
+      "description": "Nettoyer cache navigateurs (tous détectés)",
+      "tags": []
+    },
+    {
+      "id": "CLEAN_APP_CACHE",
+      "title": "Nettoyer cache applicatif (par profile d'app)",
+      "level": "CORE",
+      "domain": "CLEANING",
+      "requiresAdmin": false,
+      "supportsDryRun": true,
+      "rollback": [],
+      "risk": "LOW",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "appId": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "CACHE",
+              "CACHE_AND_LOGS",
+              "FULL_SAFE"
+            ]
+          }
+        }
+      },
+      "description": "Nettoyer cache applicatif (par profile d'app)",
+      "tags": []
+    },
+    {
+      "id": "ANALYZE_DISK_LARGE_FILES",
+      "title": "Analyse fichiers volumineux",
+      "level": "CORE",
+      "domain": "DISK",
+      "requiresAdmin": false,
+      "supportsDryRun": true,
+      "rollback": [],
+      "risk": "LOW",
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "roots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "minSizeMB": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "description": "Analyse fichiers volumineux",
+      "tags": []
+    }
+    
+    // (TRONQUÉ DANS CE COMMIT: le fichier complet doit être poussé en entier)
+  ]
+}
