@@ -7,9 +7,13 @@ import { StartupTooManyRule } from "../modules/monitoring/rules/startup_too_many
 import { SystemSnapshot } from "../core/analysis/system_snapshot";
 import { narrate } from "../ai/dialogue/virgil_narrator";
 
+/**
+ * Dev runner to validate the deterministic narration pipeline.
+ * Uses a mock snapshot, no system access.
+ */
 const snapshot: SystemSnapshot = {
   capturedAt: new Date().toISOString(),
-  startupEntries: Array.from({ length: 18 }).map((_, i) => ({
+  startupEntries: Array.from({ length: 17 }).map((_, i) => ({
     id: String(i + 1),
     name: `StartupApp${i + 1}`,
     source: "HKCU_RUN",
@@ -25,17 +29,16 @@ async function main() {
   const engine = new VirgilEngine(analyzer, rules, new ActionLog(), new DecisionLog());
   const report = await engine.runAnalysis({ runAt: new Date().toISOString(), debug: true });
 
-  const sessionSnarkMemory = new Set<string>();
-  const msg = narrate(report.results, { level: "NARRATIVE", allowSnark: true, sessionSnarkMemory });
+  const msg = narrate(report.results, {
+    level: "NARRATIVE",
+    allowSnark: true,
+    sessionSnarkMemory: new Set<string>(),
+  });
 
-  console.log("
-=== VIRGIL OUTPUT ===
-");
+  console.log("\n=== VIRGIL (deterministic narration) ===\n");
   for (const line of msg.lines) console.log(line);
-  if (msg.snark) console.log(`
-${msg.snark}`);
-  console.log(`
-[mood=${msg.mood}] [avatar=${msg.avatarState}]`);
+  if (msg.snark) console.log(`\n${msg.snark}`);
+  console.log(`\n[mood=${msg.mood}] [avatar=${msg.avatarState}]`);
 }
 
 main().catch((err) => {
