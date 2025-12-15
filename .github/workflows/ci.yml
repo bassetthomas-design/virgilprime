@@ -10,9 +10,15 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build
+          # NOTE: setup-node npm caching requires a lockfile.
+          # We currently don't commit one, so we skip caching for now.
+
+      - name: Install
+        run: npm install
+
+      - name: Build
+        run: npm run build
